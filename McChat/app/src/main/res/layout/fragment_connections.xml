@@ -3,8 +3,49 @@
     android:layout_height="match_parent"
     tools:context="de.tu_darmstadt.seemoo.dlazar.mcchat.Connections">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Device name displayed to others"
+            android:id="@+id/editDeviceName" />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Visible to others?"
+            android:id="@+id/switch1"
+            android:layout_gravity="right" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Browse for devices"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Disconnect"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal"
+            android:enabled="false" />
+
+    </LinearLayout>
 
 </FrameLayout>

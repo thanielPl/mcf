@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -18,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends Activity implements ActionBar.TabListener, Connections.OnFragmentInteractionListener, ChatBox.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,6 +35,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    Fragment mConnections = new Connections();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -68,10 +74,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // the adapter. Also specify this Activity object, which implements
             // the TabListener interface, as the callback (listener) for when
             // this tab is selected.
+
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
+
+
         }
     }
 
@@ -91,9 +100,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+/*        if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -102,15 +111,35 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
+
         mViewPager.setCurrentItem(tab.getPosition());
+        switch (tab.getPosition()) {
+            // first fragment with Chat box
+            case 0:
+                break;
+            // second fragment with Connections
+            case 1:
+                fragmentTransaction.add(mConnections, null);
+        }
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        switch (tab.getPosition()){
+            case 0:
+                break;
+            case 1:
+                fragmentTransaction.remove(mConnections);
+        }
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**
@@ -127,7 +156,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position) {
+                case 0:
+                    return ChatBox.newInstance(position+1);
+                case 1:
+                    return Connections.newInstance(position+1);
+            }
+            return ChatBox.newInstance(position+1);
         }
 
         @Override
@@ -144,8 +179,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }
@@ -153,18 +186,18 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
     /**
      * A placeholder fragment containing a simple view.
-     */
+     *//*
     public static class PlaceholderFragment extends Fragment {
-        /**
+        *//**
          * The fragment argument representing the section number for this
          * fragment.
-         */
+         *//*
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
+        *//**
          * Returns a new instance of this fragment for the given section
          * number.
-         */
+         *//*
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -182,6 +215,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
-    }
+    }*/
 
 }
