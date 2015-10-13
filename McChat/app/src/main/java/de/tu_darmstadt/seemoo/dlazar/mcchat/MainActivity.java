@@ -113,24 +113,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Con
         // the ViewPager.
 
         mViewPager.setCurrentItem(tab.getPosition());
-        switch (tab.getPosition()) {
-            // first fragment with Chat box
-            case 0:
-                break;
-            // second fragment with Connections
-            case 1:
-                fragmentTransaction.add(mConnections, null);
-        }
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        switch (tab.getPosition()){
-            case 0:
-                break;
-            case 1:
-                fragmentTransaction.remove(mConnections);
-        }
+
     }
 
     @Override
@@ -168,7 +155,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Con
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
